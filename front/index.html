@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Button Example</title>
+    <script src="functionTest.js"></script> <!-- Inclure le fichier functions.js -->
+</head>
+<body>
+    <button id="myButton">Click Me!</button>
+
+    <script>
+        document.getElementById('myButton').addEventListener('click', function() {
+            // Appeler la fonction depuis le fichier functions.js
+            myFunction();
+        });
+    </script>
+</body>
+</html>
