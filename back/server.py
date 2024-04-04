@@ -1,5 +1,8 @@
 from flask import Flask, request, jsonify
 from pymongo import MongoClient
+from flask_cors import CORS
+
+
 
 # Connexion à la base de données MongoDB
 client = MongoClient('mongodb://localhost:27017')
@@ -7,6 +10,7 @@ db = client['hexamongo']
 collection = db['youhou']
 
 app = Flask(__name__)
+CORS(app)
 
 # Définir une fonction pour la route "/page1"
 @app.route('/page1', methods=['GET', 'POST'])
