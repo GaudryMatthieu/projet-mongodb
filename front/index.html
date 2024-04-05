@@ -49,13 +49,11 @@
             </thead>
             <tbody>
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                        id="Mon">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                         <script>
-                            function onPageLoaded() {
-                                addTask();
-                            }
-                            document.addEventListener('DOMContentLoaded', onPageLoaded);
+                            document.addEventListener('DOMContentLoaded', function () {
+                                readTaskByDay('mon');
+                            });
                         </script>
                     </th>
                     <td class="px-6 py-4">
@@ -111,10 +109,12 @@
 
 
 </body>
+
 <footer>
-    <script src="function.js"></script> <!-- Inclure le fichier functions.js -->
+    <script src="functions.js"></script> <!-- Inclure le fichier functions.js -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
 </footer>
+
 
 </html>
