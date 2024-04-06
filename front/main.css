@@ -8,7 +8,7 @@
     z-index: 9999; /* Assurez-vous que la boîte modale est au-dessus du reste du contenu */
     width: 300px; /* Largeur de la modal */
     background-color: white; /* Couleur de fond de la modal */
-    padding: 20px; /* Espacement interne de la modal */
+    /* padding: 20px; Espacement interne de la modal */
     border-radius: 8px; /* Coins arrondis de la modal */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre de la modal */
 }
