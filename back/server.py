@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from pymongo import MongoClient
 from flask_cors import CORS, cross_origin
-import json
+
 # Connexion à la base de données MongoDB
 client = MongoClient('mongodb://localhost:27017')
 db = client['hexamongo']
@@ -23,13 +23,12 @@ def create():
 @app.route('/readAll/<string:day>', methods=['GET'])
 @cross_origin()  # Autoriser les requêtes CORS pour cette route
 def read(day):
-    files = collection.find({"day": day}, {"_id": 0})
-    values = [file for file in files]  # Convertir les résultats en liste
-    print(values)
+    files = collection.find({"day": day})
+    values = [{**file, "_id": str(file["_id"])} for file in files]
     if values:
-        return jsonify(values), 200  # Renvoyer les valeurs sans envelopper dans un autre dictionnaire
+        return jsonify(values), 200  # Renvoyer les valeurs avec l'id converti en chaîne
     else:
-        return jsonify({'message': 'Aucune donnée trouvée pour ce jour'}), 404
+        return jsonify({'message': 'Aucune donnée trouvée pour ce jour'}), 200
     
 
 # Définir une fonction pour la route "/page3"

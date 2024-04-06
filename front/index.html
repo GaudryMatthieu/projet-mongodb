@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="./main.css">
 </head>
 
+<script src="functions.js"></script>
+
 <body class="bg-slate-500">
     <a href="./form.html"
         class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Ajouter
@@ -27,80 +29,63 @@
                     <th scope="col" class="px-6 py-3">
                         Lundi
                     </th>
-                    <th scope="col" class="px-6 py-3" id="Tues">
+                    <th scope="col" class="px-6 py-3" >
                         Mardi
                     </th>
-                    <th scope="col" class="px-6 py-3" id="Wed">
+                    <th scope="col" class="px-6 py-3" >
                         Mercredi
                     </th>
-                    <th scope="col" class="px-6 py-3" id="Thu">
+                    <th scope="col" class="px-6 py-3" >
                         Jeudi
                     </th>
-                    <th scope="col" class="px-6 py-3" id="Fri">
+                    <th scope="col" class="px-6 py-3" >
                         Vendredi
                     </th>
-                    <th scope="col" class="px-6 py-3" id="Sat">
+                    <th scope="col" class="px-6 py-3" >
                         Samedi
                     </th>
-                    <th scope="col" class="px-6 py-3" id="Sun">
+                    <th scope="col" class="px-6 py-3" >
                         Dimanche
                     </th>
                 </tr>
             </thead>
             <tbody>
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white" id="mon">
                         <script>
-                            document.addEventListener('DOMContentLoaded', function () {
-                                readTaskByDay('mon');
-                            });
+                            readTaskByDay('mon');
                         </script>
+                        
                     </th>
-                    <td class="px-6 py-4">
-                        Silver
+                    <td class="px-6 py-4" id="tues">
+                        <script>
+                            readTaskByDay('tues');
+                        </script>
                     </td>
-                    <td class="px-6 py-4">
-                        Laptop
+                    <td class="px-6 py-4" id="wed">
+                        <script>
+                            readTaskByDay('wed');
+                        </script>
                     </td>
-                    <td class="px-6 py-4">
-                        $2999
+                    <td class="px-6 py-4" id="thu">
+                        <script>
+                            readTaskByDay('thu');
+                        </script>
                     </td>
-                    <td class="px-6 py-4">
-                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                    <td class="px-6 py-4" id="fri">
+                        <script>
+                            readTaskByDay('fri');
+                        </script>
                     </td>
-                </tr>
-                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        Microsoft Surface Pro
-                    </th>
-                    <td class="px-6 py-4">
-                        White
+                    <td class="px-6 py-4" id="sat">
+                        <script>
+                            readTaskByDay('sat');
+                        </script>
                     </td>
-                    <td class="px-6 py-4">
-                        Laptop PC
-                    </td>
-                    <td class="px-6 py-4">
-                        $1999
-                    </td>
-                    <td class="px-6 py-4">
-                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                    </td>
-                </tr>
-                <tr class="bg-white dark:bg-gray-800">
-                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        Magic Mouse 2
-                    </th>
-                    <td class="px-6 py-4">
-                        Black
-                    </td>
-                    <td class="px-6 py-4">
-                        Accessories
-                    </td>
-                    <td class="px-6 py-4">
-                        $99
-                    </td>
-                    <td class="px-6 py-4">
-                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                    <td class="px-6 py-4" id="sun">
+                        <script>
+                            readTaskByDay('sun');
+                        </script>
                     </td>
                 </tr>
             </tbody>
@@ -111,7 +96,6 @@
 </body>
 
 <footer>
-    <script src="functions.js"></script> <!-- Inclure le fichier functions.js -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
 </footer>
