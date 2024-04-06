@@ -1,0 +1,14 @@
+/* Styles pour la boîte modale */
+.modal {
+    display: none; /* Masquer la boîte modale par défaut */
+    position: fixed; /* Position fixe pour la superposer au-dessus de la page */
+    top: 50%; /* Déplacer la modal à 50% du haut de la fenêtre */
+    left: 50%; /* Déplacer la modal à 50% de la largeur de la fenêtre */
+    transform: translate(-50%, -50%); /* Centrer la modal verticalement et horizontalement */
+    z-index: 9999; /* Assurez-vous que la boîte modale est au-dessus du reste du contenu */
+    width: 300px; /* Largeur de la modal */
+    background-color: white; /* Couleur de fond de la modal */
+    padding: 20px; /* Espacement interne de la modal */
+    border-radius: 8px; /* Coins arrondis de la modal */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre de la modal */
+}
