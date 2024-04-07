@@ -12,19 +12,17 @@
 <body class="bg-slate-500">
 
     <form class="max-w-md mx-auto" id="formTask">
-
-
-        <fieldset>
-            <div class="flex items-center mb-4">
+        <fieldset class="flex flex-wrap">
+            <div class="flex items-center mb-4 mr-6 mt-8">
                 <input id="day-option-1" type="radio" name="days" value="mon"
                     class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
                     checked>
-                <label for="day-option-1" class="block ms-2  text-sm font-medium text-gray-900 dark:text-gray-300">
+                <label for="day-option-1" class="block ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                     Lundi
                 </label>
             </div>
 
-            <div class="flex items-center mb-4">
+            <div class="flex items-center mb-4 mr-6 mt-8">
                 <input id="day-option-2" type="radio" name="days" value="tues"
                     class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600">
                 <label for="day-option-2" class="block ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
@@ -32,7 +30,7 @@
                 </label>
             </div>
 
-            <div class="flex items-center mb-4">
+            <div class="flex items-center mb-4 mr-6 mt-8">
                 <input id="day-option-3" type="radio" name="days" value="wed"
                     class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:bg-gray-700 dark:border-gray-600">
                 <label for="day-option-3" class="block ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
@@ -40,7 +38,7 @@
                 </label>
             </div>
 
-            <div class="flex items-center mb-4">
+            <div class="flex items-center mb-4 mr-6 mt-8">
                 <input id="day-option-4" type="radio" name="days" value="thu"
                     class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus-ring-blue-600 dark:bg-gray-700 dark:border-gray-600">
                 <label for="day-option-4" class="block ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
@@ -48,57 +46,98 @@
                 </label>
             </div>
 
-            <div class="flex items-center">
+            <div class="flex items-center mb-4 mr-6">
                 <input id="day-option-5" type="radio" name="days" value="fri"
-                    class="w-4 h-4 border-gray-200 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:bg-gray-700 dark:border-gray-600"
-                    disabled>
-                <label for="day-option-5" class="block ms-2 text-sm font-medium text-gray-300 dark:text-gray-700">
+                    class="w-4 h-4 border-gray-200 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:bg-gray-700 dark:border-gray-600">
+                <label for="day-option-5" class="block ms-2 text-sm font-medium text-gray-300 dark:text-gray-300">
                     Vendredi
                 </label>
             </div>
-            <div class="flex items-center">
+
+            <div class="flex items-center mb-4 mr-6">
                 <input id="day-option-6" type="radio" name="days" value="sat"
-                    class="w-4 h-4 border-gray-200 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:bg-gray-700 dark:border-gray-600"
-                    disabled>
-                <label for="day-option-6" class="block ms-2 text-sm font-medium text-gray-300 dark:text-gray-700">
+                    class="w-4 h-4 border-gray-200 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:bg-gray-700 dark:border-gray-600">
+                <label for="day-option-6" class="block ms-2 text-sm font-medium text-gray-300 dark:text-gray-300">
                     Samedi
                 </label>
             </div>
-            <div class="flex items-center">
+
+            <div class="flex items-center mb-4 mr-6">
                 <input id="day-option-7" type="radio" name="days" value="sun"
-                    class="w-4 h-4 border-gray-200 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:bg-gray-700 dark:border-gray-600"
-                    disabled>
-                <label for="day-option-7" class="block ms-2 text-sm font-medium text-gray-300 dark:text-gray-700">
+                    class="w-4 h-4 border-gray-200 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:bg-gray-700 dark:border-gray-600">
+                <label for="day-option-7" class="block ms-2 text-sm font-medium text-gray-300 dark:text-gray-300">
                     Dimanche
                 </label>
             </div>
         </fieldset>
 
-        <div class="relative z-0 w-full mb-5 group">
-            <input type="text" name="title" id="floating_title"
-                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                placeholder=" " required />
-            <label for="floating_title"
-                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                Titre</label>
-        </div>
         <div class="grid md:grid-cols-2 md:gap-6">
             <div class="relative z-0 w-full mb-5 group">
+                <input type="text" name="title" id="floating_title"
+                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=" " required />
+                <label for="floating_title"
+                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                    Titre</label>
+            </div>
+            <!-- <div class="relative z-0 w-full mb-5 group">
                 <input type="text" name="color" id="color"
                     class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                     placeholder=" " required />
                 <label for="color"
-                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">First
+                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
                     Couleur</label>
+            </div> -->
+        </div>
+        <fieldset class="flex flex-wrap">
+            <div class="flex items-center mb-4 mr-6 mt-8">
+                <input id="blue" type="radio" name="color" value="blue"
+                    class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600">
+                <label for="blue" class="block ms-2 text-sm font-medium text-gray-300 dark:text-gray-300">
+                    Bleu
+                </label>
             </div>
-            <div class="relative z-0 w-full mb-5 group">
-                <input type="text" name="description" id="description"
-                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                    placeholder=" " required />
-                <label for="description"
-                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Last
-                    Description</label>
+
+            <div class="flex items-center mb-4 mr-6 mt-8">
+                <input id="yellow" type="radio" name="color" value="yellow"
+                    class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600">
+                <label for="yellow" class="block ms-2 text-sm font-medium text-gray-300 dark:text-gray-300">
+                    Jaune
+                </label>
             </div>
+
+            <div class="flex items-center mb-4 mr-6 mt-8">
+                <input id="red" type="radio" name="color" value="red"
+                    class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600">
+                <label for="red" class="block ms-2 text-sm font-medium text-gray-300 dark:text-gray-300">
+                    Rouge
+                </label>
+            </div>
+
+            <div class="flex items-center mb-4 mr-6 mt-8">
+                <input id="green" type="radio" name="color" value="green"
+                    class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600">
+                <label for="green" class="block ms-2 text-sm font-medium text-gray-300 dark:text-gray-300">
+                    Vert
+                </label>
+            </div>
+
+            <div class="flex items-center mb-4 mr-6 mt-8">
+                <input id="purple" type="radio" name="color" value="purple"
+                    class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600">
+                <label for="purple" class="block ms-2 text-sm font-medium text-gray-300 dark:text-gray-300">
+                    Violet
+                </label>
+            </div>
+        </fieldset>
+
+        <div class="relative z-0 w-full mb-5 group">
+            <input type="text" name="description" id="description"
+                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                placeholder=" " required />
+            <label for="description"
+                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                Description</label>
         </div>
         <button type="submit" id="createBtn"
             class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Créer</button>
@@ -138,7 +177,8 @@
             const taskDay = document.querySelector('input[name="days"]:checked').value;
             const taskTitle = document.querySelector('#floating_title').value;
             const taskDescription = document.querySelector('#description').value;
-            const taskColor = document.querySelector('#color').value;
+            //comment faire pour précauchée la case de la couleur correspondante ici 
+            const taskColor = document.querySelector('input[name="color"]:checked').value;
             updateTask(taskId, taskDay, taskTitle, taskColor, taskDescription);
             clearLocalStorage();
         }
@@ -180,10 +220,12 @@
 
             // Cocher le jour préalablement sélectionné
             document.querySelector(`input[name="days"][value="${taskDay}"]`).checked = true;
+            console.log(taskColor);
+            console.log("taskColor");
+            document.querySelector(`input[name="color"][value="${taskColor}"]`).checked = true;
 
             // Changer le bouton si des données existent
             if (taskId) {
-                console.log("Changing button text");
                 changeButton();
             }
         });
