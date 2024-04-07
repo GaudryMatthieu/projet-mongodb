@@ -1,4 +1,5 @@
 function addTask(form) {
+    console.log("creation");
     const day = form.get("days");
     const title = form.get("title");
     const color = form.get("color");
@@ -14,6 +15,8 @@ function addTask(form) {
         body: JSON.stringify(data)
     })
         .then(response => {
+            clearLocalStorage();
+            window.location.href = 'index.html';
             if (!response.ok) {
                 throw new Error('Erreur lors de la demande');
             }
@@ -178,8 +181,25 @@ function openFormToUpdateTask(id, title, description, color, day) {
     window.location.href = 'form.html';
 }
 
-function updateTask(){
-    localStorage.clear();
-    console.log("vas manger");
+async function updateTask(id, day, title, description, color) {
 
+    try {
+        const response = await fetch(`http://localhost:5000/tasks/${id}`, {
+            method: 'PUT', // Utilisez PUT ou PATCH en fonction de votre API
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(updatedData)
+        });
+        if (!response.ok) {
+            throw new Error('Erreur lors de la mise à jour de la tâche');
+        }
+        const data = await response.json();
+        console.log('Réponse du serveur après la mise à jour:', data);
+        localStorage.clear();
+        window.location.href = 'index.html';
+    } catch (error) {
+        console.error('Erreur:', error);
+    }
 }
+

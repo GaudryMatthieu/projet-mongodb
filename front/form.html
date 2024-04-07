@@ -109,13 +109,16 @@
 
         // Function to change button text and onclick action
         function changeButton() {
-            createBtn.textContent = "Confirmer";
-            createBtn.addEventListener('click', function() {
-                // Appeler la fonction updateTask
-                updateTask();
-                // Nettoyer le localStorage
-                clearLocalStorage();
-            });
+            const taskId = localStorage.getItem('taskId');
+            if (taskId) {
+                createBtn.textContent = "Confirmer la modification";
+                createBtn.removeEventListener('click', createOrUpdateTask);
+                createBtn.addEventListener('click', modifyTask);
+            } else {
+                createBtn.textContent = "Confirmer la création";
+                createBtn.removeEventListener('click', modifyTask);
+                createBtn.addEventListener('click', createOrUpdateTask);
+            }
         }
 
         // Function to clear local storage
@@ -128,14 +131,32 @@
             return localStorage.length === 0;
         }
 
+        // Function to handle click event for modification
+        function modifyTask(event) {
+            event.preventDefault(); // Prevent form submission
+            // Appeler la fonction updateTask
+            updateTask();
+            clearLocalStorage();
+        }
+
+        // Function to handle click event for creation or update based on localStorage
+        function createOrUpdateTask(event) {
+            event.preventDefault(); // Prevent form submission
+            const formData = new FormData(form);
+            if (isLocalStorageEmpty()) {
+                addTask(formData);
+            } else {
+                console.log('message');
+                updateTask();
+            }
+        }
+
         form.addEventListener('submit', function (event) {
             event.preventDefault();
             const formData = new FormData(form);
             if (isLocalStorageEmpty()) {
-                // La logique pour la création de tâche avec le localStorage vide et le bon nom pour le bouton
                 addTask(formData);
             } else {
-                // La logique pour la modification avec le localStorage contenant des informations et le bon nom pour le bouton et le remplissage des champs
                 updateTask();
             }
         });
@@ -158,6 +179,7 @@
 
             // Changer le bouton si des données existent
             if (taskId) {
+                console.log("Changing button text");
                 changeButton();
             }
         });
