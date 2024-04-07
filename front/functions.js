@@ -54,7 +54,8 @@ function readTaskByDay(day) {
                 const button = document.createElement('button');
                 button.textContent = task.title;
                 button.className = "focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800";
-                button.addEventListener('click', () => {
+                button.addEventListener('click', (event) => {
+                    event.stopPropagation();
                     displayContent(task.title, task.description, task._id, task.color, task.day);
                 });
 
@@ -69,6 +70,8 @@ function readTaskByDay(day) {
 
 function displayContent(title, description, id, color, day) {
     const parentCell = document.getElementById(day);
+
+    // Créer une nouvelle modale
     const modal = document.createElement('div');
     modal.classList.add('modal', 'bg-gray-800', 'bg-opacity-50', 'border', 'border-gray-900', 'p-8');
 
@@ -101,34 +104,36 @@ function displayContent(title, description, id, color, day) {
     updateButton.addEventListener('click', function () {
         openFormToUpdateTask(id, title, description, color, day);
     });
+    
     modalContent.appendChild(updateButton);
+
+    const returnButton = document.createElement('button');
+    returnButton.textContent = 'Fermer';
+    returnButton.className = "focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900";
+    returnButton.addEventListener('click', function () {
+        hideModal();
+    });
+
+    modalContent.appendChild(returnButton);
 
     modal.appendChild(modalContent);
     parentCell.appendChild(modal);
+    
+    // Afficher la modale
     modal.style.display = 'block';
-
-    window.addEventListener('click', function (event) {
-        if (event.target !== modal && !modal.contains(event.target)) {
-            hideModal();
-        }
+    
+    // Ajouter un écouteur de clic à l'intérieur de la modale pour empêcher sa fermeture lorsque l'utilisateur clique à l'intérieur
+    modal.addEventListener('click', function (event) {
+        event.stopPropagation();
     });
 }
 
 function hideModal() {
     const modal = document.querySelector('.modal');
     if (modal) {
-        modal.style.display = 'none';
+        modal.remove();
     }
 }
-
-document.addEventListener('click', function(event) {
-    const modal = document.querySelector('.modal');
-    if (modal && event.target !== modal && !modal.contains(event.target)) {
-        hideModal();
-    }
-});
-
-
 
 async function deleteTask(id) {
     console.log('Tentative de suppression de la tâche avec l\'ID:', id);
@@ -232,5 +237,4 @@ async function updateTask(id, day, title, color, description) {
         console.error('Erreur :', error);
     }
 }
-
 
