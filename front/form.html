@@ -133,20 +133,24 @@
 
         // Function to handle click event for modification
         function modifyTask(event) {
-            event.preventDefault(); // Prevent form submission
-            // Appeler la fonction updateTask
-            updateTask();
+            event.preventDefault(); // Empêcher la soumission du formulaire
+            const taskId = localStorage.getItem('taskId');
+            const taskDay = document.querySelector('input[name="days"]:checked').value;
+            const taskTitle = document.querySelector('#floating_title').value;
+            const taskDescription = document.querySelector('#description').value;
+            const taskColor = document.querySelector('#color').value;
+            updateTask(taskId, taskDay, taskTitle, taskColor, taskDescription);
             clearLocalStorage();
         }
 
-        // Function to handle click event for creation or update based on localStorage
+
+        // Function to handle click event for creation or update based on localStorage 
         function createOrUpdateTask(event) {
             event.preventDefault(); // Prevent form submission
             const formData = new FormData(form);
             if (isLocalStorageEmpty()) {
                 addTask(formData);
             } else {
-                console.log('message');
                 updateTask();
             }
         }

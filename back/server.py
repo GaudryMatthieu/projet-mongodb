@@ -6,7 +6,33 @@ from bson import ObjectId
 # Connexion à la base de données MongoDB
 client = MongoClient('mongodb://localhost:27017')
 db = client['hexamongo']
-collection = db['youhou']
+
+# Définir une collection avec un schéma contraignant
+schema = {
+    'title': {'type': 'string'},
+    'description': {'type': 'string'},
+    'color': {'type': 'string'},
+    'day': {'type': 'string'}
+}
+
+# Vérifier si la collection existe avant de la créer
+collection_name = 'db-hexa'
+if collection_name not in db.list_collection_names():
+    collection = db.create_collection(
+        collection_name,
+        validator={
+            '$jsonSchema': {
+                'bsonType': 'object',
+                'required': list(schema.keys()),  # Assurez-vous que required est une liste
+                'properties': schema
+            }
+        }
+    )
+    collection.create_index([('day', 1)])  # Ajouter un index sur le champ 'day'
+
+# Si la collection existe déjà, obtenir une référence à cette collection
+else:
+    collection = db[collection_name]
 
 app = Flask(__name__)
 CORS(app)
@@ -59,9 +85,10 @@ def update(id):
     try:
         # Récupérer les données JSON envoyées avec la requête PUT
         data = request.get_json()
-
+        object_id = ObjectId(id)
+        
         # Utiliser l'ID fourni dans l'URL pour identifier le document à mettre à jour
-        result = collection.update_one({"_id": id}, {"$set": data})
+        result = collection.update_one({"_id": object_id}, {"$set": data})
 
         if result.modified_count == 1:
             return jsonify({'message': 'Document mis à jour avec succès'}), 200

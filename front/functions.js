@@ -181,25 +181,28 @@ function openFormToUpdateTask(id, title, description, color, day) {
     window.location.href = 'form.html';
 }
 
-async function updateTask(id, day, title, description, color) {
-
+async function updateTask(id, day, title, color, description) {
     try {
-        const response = await fetch(`http://localhost:5000/tasks/${id}`, {
-            method: 'PUT', // Utilisez PUT ou PATCH en fonction de votre API
+        const updatedData = { id, day, title, color, description }; // Créez un objet avec les données mises à jour
+
+        const response = await fetch(`http://localhost:5000/update/${id}`, {
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(updatedData)
+            body: JSON.stringify(updatedData) // Convertissez les données en format JSON
         });
+
         if (!response.ok) {
             throw new Error('Erreur lors de la mise à jour de la tâche');
         }
+
         const data = await response.json();
-        console.log('Réponse du serveur après la mise à jour:', data);
-        localStorage.clear();
-        window.location.href = 'index.html';
+        console.log('Réponse du serveur après la mise à jour :', data);
+
+        localStorage.clear(); // Effacez le stockage local après la mise à jour
+        window.location.href = 'index.html'; // Redirigez l'utilisateur vers la page index.html
     } catch (error) {
-        console.error('Erreur:', error);
+        console.error('Erreur :', error);
     }
 }
-
