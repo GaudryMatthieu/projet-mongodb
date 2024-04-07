@@ -68,12 +68,22 @@ function readTaskByDay(day) {
 }
 
 function displayContent(title, description, id, color, day) {
-    const modal = document.querySelector('.modal');
-    const modalTitle = modal.querySelector('#modal-title');
-    const modalDescription = modal.querySelector('#modal-description');
+    const parentCell = document.getElementById(day);
+    const modal = document.createElement('div');
+    modal.classList.add('modal', 'bg-gray-800', 'bg-opacity-50', 'border', 'border-gray-900', 'p-8');
 
+    const modalContent = document.createElement('div');
+    modalContent.classList.add('modal-content');
+
+    const modalTitle = document.createElement('h5');
     modalTitle.textContent = title;
+    modalTitle.classList.add('mb-2', 'text-2xl', 'font-bold', 'tracking-tight', 'text-gray-900', 'dark:text-white');
+    modalContent.appendChild(modalTitle);
+
+    const modalDescription = document.createElement('p');
     modalDescription.textContent = description;
+    modalDescription.classList.add('mb-3', 'font-normal', 'text-gray-700', 'dark:text-gray-400');
+    modalContent.appendChild(modalDescription);
 
     const deleteButton = document.createElement('button');
     deleteButton.textContent = 'Supprimer';
@@ -82,27 +92,43 @@ function displayContent(title, description, id, color, day) {
     deleteButton.addEventListener('click', function () {
         deleteTask(id);
     });
-
-    modal.appendChild(deleteButton);
+    modalContent.appendChild(deleteButton);
 
     const updateButton = document.createElement('button');
-    updateButton.textContent = 'Modifier'; // Correction: Utilisez updateButton ici
+    updateButton.textContent = 'Modifier';
     updateButton.className = "focus:outline-none text-white bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-yellow-900";
     updateButton.setAttribute('data-task-id', id);
     updateButton.addEventListener('click', function () {
         openFormToUpdateTask(id, title, description, color, day);
     });
+    modalContent.appendChild(updateButton);
 
-    modal.appendChild(updateButton); // Correction: Utilisez updateButton ici
-
-
-
+    modal.appendChild(modalContent);
+    parentCell.appendChild(modal);
     modal.style.display = 'block';
+
+    window.addEventListener('click', function (event) {
+        if (event.target !== modal && !modal.contains(event.target)) {
+            hideModal();
+        }
+    });
 }
 
 function hideModal() {
-    document.querySelector('#modal').style.display = 'none';
+    const modal = document.querySelector('.modal');
+    if (modal) {
+        modal.style.display = 'none';
+    }
 }
+
+document.addEventListener('click', function(event) {
+    const modal = document.querySelector('.modal');
+    if (modal && event.target !== modal && !modal.contains(event.target)) {
+        hideModal();
+    }
+});
+
+
 
 async function deleteTask(id) {
     console.log('Tentative de suppression de la tâche avec l\'ID:', id);
@@ -206,3 +232,5 @@ async function updateTask(id, day, title, color, description) {
         console.error('Erreur :', error);
     }
 }
+
+

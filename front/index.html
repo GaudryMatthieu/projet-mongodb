@@ -18,6 +18,7 @@
 
     <script>
         document.getElementById('newTask').addEventListener('click', function () {
+            localStorage.clear();
             addTask();
         });
     </script>
@@ -109,7 +110,14 @@
         </table>
     </div>
 
-
+<script>
+    document.addEventListener('click', function(event) {
+    const modal = document.querySelector('.modal');
+    if (event.target !== modal && !modal.contains(event.target)) {
+        hideModal();
+    }
+});
+</script>
 </body>
 
 <footer>

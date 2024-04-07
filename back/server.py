@@ -4,18 +4,32 @@ from flask_cors import CORS, cross_origin
 from bson import ObjectId
 
 # Connexion à la base de données MongoDB
+# Connexion à la base de données MongoDB
 client = MongoClient('mongodb://localhost:27017')
 db = client['hexamongo']
 
-# Définir une collection avec un schéma contraignant
+# Créer une collection pour stocker les références
+references_collection_name = 'references'
+references_collection = db.get_collection(references_collection_name)
+
+# Vérifier si la collection des références existe
+if references_collection.count_documents({}) == 0:
+    # Insérer un document de référence bidon
+    reference_doc = {'reference': 'reference'}
+    references_collection.insert_one(reference_doc)
+    # Récupérer l'ID du document de référence
+    ref = reference_doc['_id']
+
+# Définir une collection principale avec un schéma contraignant
 schema = {
     'title': {'type': 'string'},
     'description': {'type': 'string'},
     'color': {'type': 'string'},
-    'day': {'type': 'string'}
+    'day': {'type': 'string'},
+    'ref': {'type': 'ObjectId'}  # Champ pour stocker l'ID de référence
 }
 
-# Vérifier si la collection existe avant de la créer
+# Vérifier si la collection principale existe avant de la créer
 collection_name = 'db-hexa'
 if collection_name not in db.list_collection_names():
     collection = db.create_collection(
@@ -23,16 +37,19 @@ if collection_name not in db.list_collection_names():
         validator={
             '$jsonSchema': {
                 'bsonType': 'object',
-                'required': list(schema.keys()),  # Assurez-vous que required est une liste
+                'required': list(schema.keys()),
                 'properties': schema
             }
         }
     )
     collection.create_index([('day', 1)])  # Ajouter un index sur le champ 'day'
 
-# Si la collection existe déjà, obtenir une référence à cette collection
+# Si la collection principale existe déjà, obtenir une référence à cette collection
 else:
     collection = db[collection_name]
+
+# Votre code Flask et les routes restent les mêmes
+
 
 app = Flask(__name__)
 CORS(app)
@@ -42,19 +59,34 @@ CORS(app)
 @cross_origin()  # Autoriser les requêtes CORS pour cette route
 def create():
     json_data = request.get_json()  # Récupère les données JSON de la demande
+    reference_doc = references_collection.find_one({'reference': 'reference'})
+    ref = reference_doc['_id']
+    # Ajouter le champ ref à vos données JSON
+    json_data['ref'] = ref
     collection.insert_one(json_data)  # Insère les données JSON dans la base de données
     return jsonify({'message': 'Données insérées avec succès'}), 200  # Répond avec un message de succès
 
 # Définir une fonction pour la route "/readAll/<day>"
 @app.route('/readAll/<string:day>', methods=['GET'])
-@cross_origin()  # Autoriser les requêtes CORS pour cette route
+@cross_origin()
 def read_all_by_day(day):
     files = collection.find({"day": day})
     values = [{**file, "_id": str(file["_id"])} for file in files]
+
+    # Supprimer le champ 'ref' de chaque dictionnaire
+    for file in values:
+        if 'ref' in file:
+            del file['ref']
+
+    print("-------------------------------------------")
+    print(values)
+    print("-------------------------------------------")
+
     if values:
-        return jsonify(values), 200  # Renvoyer les valeurs avec l'id converti en chaîne
+        return jsonify(values), 200
     else:
-        return jsonify({'message': 'Aucune donnée trouvée pour ce jour'}), 404
+        return jsonify({'message': 'Aucune donnée trouvée pour ce jour'}), 200
+
     
 @app.route('/readAll/', methods=['GET'])
 @cross_origin()  # Autoriser les requêtes CORS pour cette route
@@ -64,7 +96,7 @@ def read_all():
     if values:
         return jsonify(values), 200  # Renvoyer les valeurs avec l'id converti en chaîne
     else:
-        return jsonify({'message': 'Aucune donnée trouvée pour ce jour'}), 404
+        return jsonify({'message': 'Aucune donnée trouvée pour ce jour'}), 200
     
 @app.route('/readAll/<string:id>', methods=['GET'])
 @cross_origin()  # Autoriser les requêtes CORS pour cette route
@@ -75,7 +107,7 @@ def read():
     if values:
         return jsonify(values), 200  # Renvoyer les valeurs avec l'id converti en chaîne
     else:
-        return jsonify({'message': 'Aucune donnée trouvée pour ce jour'}), 404
+        return jsonify({'message': 'Aucune donnée trouvée pour ce jour'}), 200
     
 
 # Définir une fonction pour la route "/page3"
@@ -93,9 +125,9 @@ def update(id):
         if result.modified_count == 1:
             return jsonify({'message': 'Document mis à jour avec succès'}), 200
         else:
-            return jsonify({'error': 'Aucun document mis à jour. ID non trouvé.'}), 404
+            return jsonify({'error': 'Aucun document mis à jour. ID non trouvé.'}), 200
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        return jsonify({'error': str(e)}), 200
 
 @app.route('/delete/<string:id>', methods=['DELETE'])
 @cross_origin()  
@@ -110,11 +142,11 @@ def delete(id):
         if result.deleted_count == 1:
             return jsonify({'message': 'Document supprimé avec succès'})
         else:
-            return jsonify({'error': 'Aucun document supprimé. ID non trouvé.'}), 404
+            return jsonify({'error': 'Aucun document supprimé. ID non trouvé.'}), 200
     except Exception as e:
         # Journalisez l'erreur pour le débogage
         print("Erreur lors de la suppression du document:", str(e))
-        return jsonify({'error': 'Une erreur s\'est produite lors de la suppression du document.'}), 500
+        return jsonify({'error': 'Une erreur s\'est produite lors de la suppression du document.'}), 200
 
 
 if __name__ == '__main__':
