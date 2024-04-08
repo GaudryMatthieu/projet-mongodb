@@ -8,6 +8,8 @@ Ce projet est une application de gestion de tâches personnelles. L'utilisateur 
 
 
 ## Guide pour l'API
+
+### Routes
 - localhost:5000/create -> POST
 - localhost:5000/readAll/{day} -> GET
 - localhost:5000/readAll/ -> GET
@@ -15,6 +17,15 @@ Ce projet est une application de gestion de tâches personnelles. L'utilisateur 
 - localhost:5000/readAll/{id} -> GET
 - localhost:5000/update/{id} ->  PUT
 - localhost:5000/delete/{id} -> DELETE
+
+### Optimisations
+2 index :
+   - id
+   - day
+
+### Schéma
+
+Vous pouvez retrouvez un schéma qui correspond à la donnée juste en dessous avec donc le jour, le titre, la description, la couleur ainsi que la référence.
 
 #### Exemple de fichier json stocké dans la base de donnée
 
@@ -29,3 +40,4 @@ Ce projet est une application de gestion de tâches personnelles. L'utilisateur 
   }
 }
 ```
+
