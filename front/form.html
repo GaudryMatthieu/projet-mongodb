@@ -179,6 +179,7 @@
             const taskDescription = document.querySelector('#description').value;
             //comment faire pour précauchée la case de la couleur correspondante ici 
             const taskColor = document.querySelector('input[name="color"]:checked').value;
+            console.log("la");
             updateTask(taskId, taskDay, taskTitle, taskColor, taskDescription);
             clearLocalStorage();
         }
@@ -191,6 +192,7 @@
             if (isLocalStorageEmpty()) {
                 addTask(formData);
             } else {
+                console.log("ici");
                 updateTask();
             }
         }
@@ -201,7 +203,8 @@
             if (isLocalStorageEmpty()) {
                 addTask(formData);
             } else {
-                updateTask();
+                
+                modifyTask(event);
             }
         });
 
@@ -221,7 +224,6 @@
             // Cocher le jour préalablement sélectionné
             document.querySelector(`input[name="days"][value="${taskDay}"]`).checked = true;
             console.log(taskColor);
-            console.log("taskColor");
             document.querySelector(`input[name="color"][value="${taskColor}"]`).checked = true;
 
             // Changer le bouton si des données existent

@@ -2,31 +2,61 @@ from flask import Flask, request, jsonify
 from pymongo import MongoClient
 from flask_cors import CORS, cross_origin
 from bson import ObjectId
+from pymongo.mongo_client import MongoClient
+from pymongo.server_api import ServerApi
+
+uri = "mongodb+srv://matthieugaudry78:matthieu@mongohexa.nag4wuq.mongodb.net/?retryWrites=true&w=majority&appName=mongohexa"
+
+# Create a new client and connect to the server
+client = MongoClient(uri, server_api=ServerApi('1'))
+
+# Send a ping to confirm a successful connection
+try:
+    client.admin.command('ping')
+    print("Pinged your deployment. You successfully connected to MongoDB!")
+except Exception as e:
+    print(e)
+
+# Fonction pour se connecter à la base de données MongoDB
+def connect_to_database(database_name):
+    try:
+        client.admin.command('ping')  # Vérifier la connexion en envoyant un ping
+        print("Pinged your deployment. You successfully connected to MongoDB!")
+        db = client[database_name]  # Accéder à la base de données spécifiée
+        return db
+    except Exception as e:
+        print(e)
+        return None  # Retourner None en cas d'échec de la connexion    
 
 # Connexion à la base de données MongoDB
-# Connexion à la base de données MongoDB
-client = MongoClient('mongodb://localhost:27017')
-db = client['hexamongo']
+db = connect_to_database('hexamongo')
 
-# Créer une collection pour stocker les références
-references_collection_name = 'references'
-references_collection = db.get_collection(references_collection_name)
+# Vérifier si la connexion a réussi
+if db is not None:
+    # Créer une collection pour stocker les références
+    references_collection_name = 'references'
+    references_collection = db.get_collection(references_collection_name)
+    
+    # Vérifier si la collection des références existe
+    if references_collection.count_documents({}) == 0:
+        # Insérer un document de référence bidon
+        reference_doc = {'reference': 'reference'}
+        references_collection.insert_one(reference_doc)
+        # Récupérer l'ID du document de référence
+        ref = reference_doc['_id']
+else:
+    # Gérer l'échec de la connexion à la base de données
+    print("Failed to connect to MongoDB.")
 
-# Vérifier si la collection des références existe
-if references_collection.count_documents({}) == 0:
-    # Insérer un document de référence bidon
-    reference_doc = {'reference': 'reference'}
-    references_collection.insert_one(reference_doc)
-    # Récupérer l'ID du document de référence
-    ref = reference_doc['_id']
 
+# Définir une collection principale avec un schéma contraignant
 # Définir une collection principale avec un schéma contraignant
 schema = {
     'title': {'type': 'string'},
     'description': {'type': 'string'},
     'color': {'type': 'string'},
     'day': {'type': 'string'},
-    'ref': {'type': 'ObjectId'}  # Champ pour stocker l'ID de référence
+    'ref': {'bsonType': 'objectId'}  # Utiliser 'bsonType' et 'objectId' correctement
 }
 
 # Vérifier si la collection principale existe avant de la créer
@@ -47,6 +77,9 @@ if collection_name not in db.list_collection_names():
 # Si la collection principale existe déjà, obtenir une référence à cette collection
 else:
     collection = db[collection_name]
+
+# Votre code Flask et les routes restent les mêmes
+
 
 # Votre code Flask et les routes restent les mêmes
 

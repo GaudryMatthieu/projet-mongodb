@@ -11,6 +11,7 @@ Ce projet est une application de gestion de tâches personnelles. L'utilisateur 
 - localhost:5000/create -> POST
 - localhost:5000/readAll/{day} -> GET
 - localhost:5000/readAll/ -> GET
+
 - localhost:5000/readAll/{id} -> GET
 - localhost:5000/update/{id} ->  PUT
 - localhost:5000/delete/{id} -> DELETE
