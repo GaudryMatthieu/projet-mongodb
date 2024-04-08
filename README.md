@@ -16,3 +16,16 @@ Ce projet est une application de gestion de tâches personnelles. L'utilisateur 
 - localhost:5000/update/{id} ->  PUT
 - localhost:5000/delete/{id} -> DELETE
 
+#### Exemple de fichier json stocké dans la base de donnée
+
+```json
+{
+  "day": "mon",
+  "title": "Projet Mongo DB",
+  "color": "red",
+  "description": "Héberger le site/ inclure un readme/ avoir un back propre/ ...",
+  "ref": {
+    "$oid": "6612bf4e398f7114cfd1b8e5"
+  }
+}
+```
