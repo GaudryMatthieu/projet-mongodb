@@ -18,3 +18,12 @@
 .hidden {
     display: none;
 }
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #f8f9fa; /* couleur de fond */
+    padding: 10px; /* espace intérieur */
+    text-align: center; /* alignement du texte */
+}
