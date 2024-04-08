@@ -1,3 +1,4 @@
+//fonction pour créer une tache
 function addTask(form) {
     console.log("creation");
     const day = form.get("days");
@@ -30,6 +31,7 @@ function addTask(form) {
         });
 }
 
+//lire les taches en fonction du jour
 function readTaskByDay(day) {
     fetch(`http://localhost:5000/readAll/${day}`, {
         method: 'GET',
@@ -78,6 +80,7 @@ function readTaskByDay(day) {
         });
 }
 
+//fonction pour afficher la modal
 function displayContent(title, description, id, color, day) {
     const parentCell = document.getElementById(day);
 
@@ -168,6 +171,7 @@ function displayContent(title, description, id, color, day) {
     });
 }
 
+//fonction cacher la modal
 function hideModal() {
     const modal = document.querySelector('.modal');
     if (modal) {
@@ -175,6 +179,7 @@ function hideModal() {
     }
 }
 
+//fonction pour supprimer une tache
 async function deleteTask(id) {
     console.log('Tentative de suppression de la tâche avec l\'ID:', id);
     try {
@@ -203,6 +208,7 @@ async function deleteTask(id) {
     }
 }
 
+//fonction pour lire tout les objets de la db
 async function readAll() {
     try {
         const response = await fetch(`http://localhost:5000/readAll/`, {
@@ -252,6 +258,7 @@ function openFormToUpdateTask(id, title, description, color, day) {
     window.location.href = 'form.html';
 }
 
+//modifie un objet en db
 async function updateTask(id, day, title, color, description) {
     try {
         const updatedData = { id, day, title, color, description }; // Créez un objet avec les données mises à jour

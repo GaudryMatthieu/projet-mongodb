@@ -7,10 +7,9 @@ from pymongo.server_api import ServerApi
 
 uri = "mongodb+srv://matthieugaudry78:matthieu@mongohexa.nag4wuq.mongodb.net/?retryWrites=true&w=majority&appName=mongohexa"
 
-# Create a new client and connect to the server
+# crée un nouveau client et le co à la db
 client = MongoClient(uri, server_api=ServerApi('1'))
 
-# Send a ping to confirm a successful connection
 try:
     client.admin.command('ping')
     print("Pinged your deployment. You successfully connected to MongoDB!")
@@ -50,13 +49,12 @@ else:
 
 
 # Définir une collection principale avec un schéma contraignant
-# Définir une collection principale avec un schéma contraignant
 schema = {
     'title': {'type': 'string'},
     'description': {'type': 'string'},
     'color': {'type': 'string'},
     'day': {'type': 'string'},
-    'ref': {'bsonType': 'objectId'}  # Utiliser 'bsonType' et 'objectId' correctement
+    'ref': {'bsonType': 'objectId'}
 }
 
 # Vérifier si la collection principale existe avant de la créer
@@ -72,17 +70,11 @@ if collection_name not in db.list_collection_names():
             }
         }
     )
-    collection.create_index([('day', 1)])  # Ajouter un index sur le champ 'day'
+    collection.create_index([('day', 1)])
 
 # Si la collection principale existe déjà, obtenir une référence à cette collection
 else:
     collection = db[collection_name]
-
-# Votre code Flask et les routes restent les mêmes
-
-
-# Votre code Flask et les routes restent les mêmes
-
 
 app = Flask(__name__)
 CORS(app)
@@ -97,7 +89,7 @@ def create():
     # Ajouter le champ ref à vos données JSON
     json_data['ref'] = ref
     collection.insert_one(json_data)  # Insère les données JSON dans la base de données
-    return jsonify({'message': 'Données insérées avec succès'}), 200  # Répond avec un message de succès
+    return jsonify({'message': 'Données insérées avec succès'}), 200
 
 # Définir une fonction pour la route "/readAll/<day>"
 @app.route('/readAll/<string:day>', methods=['GET'])
@@ -110,27 +102,23 @@ def read_all_by_day(day):
     for file in values:
         if 'ref' in file:
             del file['ref']
-
-    print("-------------------------------------------")
-    print(values)
-    print("-------------------------------------------")
-
     if values:
         return jsonify(values), 200
     else:
         return jsonify({'message': 'Aucune donnée trouvée pour ce jour'}), 200
 
-    
+#lecture de tous les éléments en db
 @app.route('/readAll/', methods=['GET'])
 @cross_origin()  # Autoriser les requêtes CORS pour cette route
 def read_all():
     files = collection.find()
     values = [{**file, "_id": str(file["_id"])} for file in files]
     if values:
-        return jsonify(values), 200  # Renvoyer les valeurs avec l'id converti en chaîne
+        return jsonify(values), 200
     else:
         return jsonify({'message': 'Aucune donnée trouvée pour ce jour'}), 200
     
+#lire un objet grace à son id
 @app.route('/readAll/<string:id>', methods=['GET'])
 @cross_origin()  # Autoriser les requêtes CORS pour cette route
 def read():
@@ -143,7 +131,7 @@ def read():
         return jsonify({'message': 'Aucune donnée trouvée pour ce jour'}), 200
     
 
-# Définir une fonction pour la route "/page3"
+# modification d'un objet grace à l'id
 @app.route('/update/<string:id>', methods=['PUT'])
 @cross_origin()    
 def update(id):
@@ -162,6 +150,7 @@ def update(id):
     except Exception as e:
         return jsonify({'error': str(e)}), 200
 
+# supprime l'objet grace à l'id
 @app.route('/delete/<string:id>', methods=['DELETE'])
 @cross_origin()  
 def delete(id):
