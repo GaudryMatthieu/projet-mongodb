@@ -7,7 +7,7 @@ function addTask(form) {
 
     const data = { day, title, color, description };
 
-    fetch('http://localhost:5000/page1', {
+    fetch('http://localhost:5000/create', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

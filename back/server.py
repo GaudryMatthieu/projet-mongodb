@@ -54,8 +54,8 @@ else:
 app = Flask(__name__)
 CORS(app)
 
-# Définir une fonction pour la route "/page1"
-@app.route('/page1', methods=['POST'])
+# Définir une fonction pour la route "/create"
+@app.route('/create', methods=['POST'])
 @cross_origin()  # Autoriser les requêtes CORS pour cette route
 def create():
     json_data = request.get_json()  # Récupère les données JSON de la demande
