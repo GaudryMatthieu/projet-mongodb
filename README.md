@@ -41,3 +41,22 @@ Vous pouvez retrouvez un schéma qui correspond à la donnée juste en dessous a
 }
 ```
 
+### Bibliothèques utilisées
+
+Pour le côté back, j'utilise en environnement python pour avoir les dépendances nécessaires
+
+**Package**      **Version**
+------------ -------
+blinker      1.7.0
+click        8.1.7
+colorama     0.4.6
+dnspython    2.6.1
+Flask        3.0.2
+Flask-Cors   4.0.0
+itsdangerous 2.1.2
+Jinja2       3.1.3
+MarkupSafe   2.1.5
+pip          24.0
+pymongo      4.6.3
+Werkzeug     3.0.2
+
